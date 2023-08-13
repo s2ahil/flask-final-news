@@ -59,11 +59,11 @@ def predict():
         preprocessed_text = preprocess_text(new_text)
         text_vector = cv.transform([preprocessed_text]).toarray()
         prediction = model.predict(text_vector)
-        if prediction[1]=='1':
-            result='unreliable'
-        else:
-            result='reliable'
-        return jsonify({'message': result})
+        # if prediction[1]=='1':
+        #     result='unreliable'
+        # else:
+        #     result='reliable'
+        return jsonify({'message': prediction})
      
 if __name__ == '__main__':
     app.run()
