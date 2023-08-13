@@ -61,9 +61,9 @@ def predict():
         prediction = model.predict(text_vector)
         # if prediction[1]=='1':
         #     result='unreliable'
-        # else:
+        # else: hello
         #     result='reliable'
-        return jsonify({'message': prediction})
+        return jsonify({'message': 'result '+prediction})
      
 if __name__ == '__main__':
     app.run()
