@@ -37,11 +37,11 @@ with open('modelnewl.pkl', 'rb') as model_file:
 with open('countvectorizer.pkl', 'rb') as cv_file:
     cv = pickle.load(cv_file)
 
-new_text = "This is an example sentence to be predicted."
-preprocessed_text = preprocess_text(new_text)
+# new_text = "This is an example sentence to be predicted."
+# preprocessed_text = preprocess_text(new_text)
 
 
-text_vector = cv.transform([preprocessed_text]).toarray()
+# text_vector = cv.transform([preprocessed_text]).toarray()
 
 app = Flask(__name__)
 
@@ -55,8 +55,11 @@ def predict():
      if request.method == 'POST':
         data = request.form['news_text']
         print(data)
+        new_text = str(data)
+        preprocessed_text = preprocess_text(new_text)
+        text_vector = cv.transform([preprocessed_text]).toarray()
         prediction = model.predict(text_vector)
-        return jsonify({'message': 'result'+str(prediction)})
+        return jsonify({'message': 'result'+str(prediction)+new_text})
      
 if __name__ == '__main__':
     app.run()
