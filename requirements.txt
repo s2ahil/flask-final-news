@@ -6,4 +6,3 @@ uvicorn
 gunicorn
 flask
 nltk
-pickle
