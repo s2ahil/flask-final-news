@@ -63,7 +63,7 @@ def predict():
             result='unreliable'
         else:
             result='reliable'
-        return jsonify({'message': result)
+        return jsonify({'message': result})
      
 if __name__ == '__main__':
     app.run()
