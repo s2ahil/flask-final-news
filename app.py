@@ -52,18 +52,29 @@ def index():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-     if request.method == 'POST':
-        data = request.form['news_text']
-        print(data)
-        new_text = str(data)
-        preprocessed_text = preprocess_text(new_text)
-        text_vector = cv.transform([preprocessed_text]).toarray()
-        prediction = model.predict(text_vector)
-        # if prediction[1]=='1':
-        #     result='unreliable'
-        # else: hello
-        #     result='reliable'
-        return jsonify({'message': 'result '+str(prediction)})
+     # if request.method == 'POST':
+     #    data = request.form['news_text']
+     #    print(data)
+     #    new_text = str(data)
+     #    preprocessed_text = preprocess_text(new_text)
+     #    text_vector = cv.transform([preprocessed_text]).toarray()
+     #    prediction = model.predict(text_vector)
+     #    # if prediction[1]=='1':
+     #    #     result='unreliable'
+     #    # else: hello
+     #    #     result='reliable'
+     #    return jsonify({'message': 'result '+str(prediction)})
+    if request.method == 'POST':
+        try:
+            data = request.json['news_text']
+            new_text = str(data)
+            preprocessed_text = preprocess_text(new_text)
+            text_vector = cv.transform([preprocessed_text]).toarray()
+            prediction = model.predict(text_vector)
+            return jsonify({'message': 'result ' + str(prediction[0])})  # assuming prediction is an array
+        except Exception as e:
+            return jsonify({'error': str(e)})
+
      
 if __name__ == '__main__':
     app.run()
